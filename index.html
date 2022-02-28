@@ -23,13 +23,18 @@
     <main>
         <!-- search part -->
         <section class="p-3">
-            <div class="w-75 mx-auto">
+            <div class="mx-auto">
                 <marquee width="100%" direction="left" height="50px" style="font-weight: 700;" class="text-black">Country's largest website dedicated for mobile phones from various models, brands and choices. Here you can get all the details with pictures of your favourite phone just by searching. 
                 </marquee>
             </div>
-            <div class="input-group my-3 w-50 mx-auto">
-                <input type="text" class="form-control" placeholder="Search your desired phone">
-                <button class="btn btn-outline-primary" type="button" id="button-search">Search</button>
+            <div class="input-group my-3 w-75 mx-auto">
+                <input type="text" class="form-control" id="search-field" placeholder="Search your desired phone">
+                <button class="btn btn-outline-primary" type="button" id="button-search" onclick="searchPhone()">Search</button>
+            </div>
+        </section>
+        <!-- searched content will appear in this section -->
+        <section class="p-4 w-75 mx-auto">
+            <div id="search-result" class="row row-cols-1 row-cols-md-3 g-4">
             </div>
         </section>
     </main>
