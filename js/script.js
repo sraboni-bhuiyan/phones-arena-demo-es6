@@ -13,6 +13,7 @@ const searchPhone = () => {
 
 const displaySearchPhone = phones => {
     const searchResult = document.getElementById("search-result")
+    searchResult.textContent = ''
     phones.forEach(phone => {
         console.log(phone.slug);
         const div = document.createElement('div')
@@ -40,19 +41,23 @@ const loadPhoneDetail = phoneId => {
 const displayPhoneDetail = phone => {
     console.log(phone)
     const phoneDetail = document.getElementById("phone-detail")
+    phoneDetail.textContent = ''
     const div = document.createElement('div')
     div.classList.add('card')
     div.innerHTML = `
     <div class="row g-0">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <img src="${phone.image}" class="img-fluid rounded-start">
         </div>
-        <div class="col-md-8">
+        <div class="col-md-9">
             <div class="card-body">
                 <h4 class="card-title">${phone.brand}</h4>
                 <h5 class="card-title">${phone.name}</h5>
-                <p class="card-text">Storage: </p>
-                <p class="card-text">Display SIze: </p>
+                <h6 class="card-title">(${phone.releaseDate})</h6>
+                <p class="card-text">Chipset: ${phone.mainFeatures.chipSet}</p>
+                <p class="card-text">Display Size: ${phone.mainFeatures.displaySize}</p>
+                <p class="card-text">Memory: ${phone.mainFeatures.memory}</p>
+                <p class="card-text">Storage: ${phone.mainFeatures.storage}</p>
             </div>
         </div>
     </div>
