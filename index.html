@@ -21,7 +21,7 @@
     </head>
     <!-- main content section -->
     <main>
-        <!-- search part -->
+        <!-- search phone part -->
         <section class="p-3">
             <div class="mx-auto">
                 <marquee width="100%" direction="left" height="50px" style="font-weight: 700;" class="text-black">Country's largest website dedicated for mobile phones from various models, brands and choices. Here you can get all the details with pictures of your favourite phone just by searching. 
@@ -32,7 +32,15 @@
                 <button class="btn btn-outline-primary" type="button" id="button-search" onclick="searchPhone()">Search</button>
             </div>
         </section>
-        <!-- searched content will appear in this section -->
+        <!-- result of individual phone item -->
+        <section class="p-3 w-75 mx-auto">
+            <div id="phone-detail">
+                <div class="card mb-3" style="max-width: 600px;">
+                    
+                </div>
+            </div>
+        </section>
+        <!-- searched phones will appear in this section -->
         <section class="p-4 w-75 mx-auto">
             <div id="search-result" class="row row-cols-1 row-cols-md-3 g-4">
             </div>
