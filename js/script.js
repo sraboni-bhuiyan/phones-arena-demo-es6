@@ -1,21 +1,38 @@
-console.log('connected')
+document.getElementById('warning-msg').style.display = 'none'
+document.getElementById('error-msg').style.display = 'none'
 
 const searchPhone = () => {
     const searchField = document.getElementById("search-field");
     searchText = searchField.value;
     searchField.value = '';
-    const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
-    console.log(url)
-    fetch(url)
-    .then(res => res.json())
-    .then(data => displaySearchPhone(data.data))
+    if (searchText == ''){
+        document.getElementById('warning-msg').style.display = 'block'
+        document.getElementById('error-msg').style.display = 'none'
+    }
+    else{
+        const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
+        fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            if(data.status == false){
+                document.getElementById('error-msg').style.display = 'block'
+                document.getElementById('warning-msg').style.display = 'none'
+                console.log(data.status)
+            }
+            else{
+                document.getElementById('warning-msg').style.display = 'none'
+                document.getElementById('error-msg').style.display = 'none'
+                displaySearchPhone(data.data)
+            }
+        })
+    }
 }
 
 const displaySearchPhone = phones => {
     const searchResult = document.getElementById("search-result")
     searchResult.textContent = ''
-    phones.forEach(phone => {
-        console.log(phone.slug);
+    const maxTwentyPhones = phones.slice(0, 20);
+    maxTwentyPhones.forEach(phone => {
         const div = document.createElement('div')
         div.classList.add('col')
         div.innerHTML = `
@@ -39,7 +56,14 @@ const loadPhoneDetail = phoneId => {
     .then(data => displayPhoneDetail(data.data))
 }
 const displayPhoneDetail = phone => {
-    console.log(phone)
+    document.getElementById('warning-msg').style.display = 'none'
+    document.getElementById('error-msg').style.display = 'none'
+    if(phone.mainFeatures.chipSet){
+        console.log(phone.mainFeatures.chipSet)
+    }
+    else{
+        console.log('null')
+    }
     const phoneDetail = document.getElementById("phone-detail")
     phoneDetail.textContent = ''
     const div = document.createElement('div')
