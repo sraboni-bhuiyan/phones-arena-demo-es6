@@ -1,12 +1,14 @@
 document.getElementById('warning-msg').style.display = 'none'
 document.getElementById('error-msg').style.display = 'none'
 
+/* search phone */
 const searchPhone = () => {
-    const phoneDetail = document.getElementById("phone-detail")
-    phoneDetail.textContent = ''
+    document.getElementById("phone-detail").textContent = ''
+    document.getElementById("search-result").textContent = ''
     const searchField = document.getElementById("search-field");
     searchText = searchField.value;
     searchField.value = '';
+    /* empty input condition*/
     if (searchText == ''){
         document.getElementById('warning-msg').style.display = 'block'
         document.getElementById('error-msg').style.display = 'none'
@@ -16,6 +18,7 @@ const searchPhone = () => {
         fetch(url)
         .then(res => res.json())
         .then(data => {
+            /* wrong input condition checking */
             if(data.status == false){
                 document.getElementById('error-msg').style.display = 'block'
                 document.getElementById('warning-msg').style.display = 'none'
@@ -30,16 +33,17 @@ const searchPhone = () => {
         })
     }
 }
-
+/* searched phone display */
 const displaySearchPhone = phones => {
     const searchResult = document.getElementById("search-result")
     searchResult.textContent = ''
+    console.log(phones)
     const maxTwentyPhones = phones.slice(0, 20);
     maxTwentyPhones.forEach(phone => {
         const div = document.createElement('div')
         div.classList.add('col')
         div.innerHTML = `
-            <div class="card p-2 rounded">
+            <div class="card p-2 rounded shadow">
                 <img src="${phone.image}" class="card-img-top">
                 <div class="card-body d-flex flex-column justify-content-center">
                     <h5 class="card-title text-center">${phone.brand}</h5>
@@ -52,6 +56,7 @@ const displaySearchPhone = phones => {
     });
 }
 
+/* single phone details display */
 const loadPhoneDetail = phoneId => {
     const url = `https://openapi.programming-hero.com/api/phone/${phoneId}`;
     fetch(url)
@@ -59,18 +64,18 @@ const loadPhoneDetail = phoneId => {
     .then(data => displayPhoneDetail(data.data))
 }
 const displayPhoneDetail = phone => {
-    console.log(phone)
+    //console.log(phone)
     document.getElementById('warning-msg').style.display = 'none'
     document.getElementById('error-msg').style.display = 'none'
     const phoneDetail = document.getElementById("phone-detail")
     phoneDetail.textContent = ''
-    if(phone.others){
-        console.log(phone.others)
-    }
+    
+        phone.others ? phone.others : 'naiiii';
+    
         const div = document.createElement('div')
         div.classList.add('card') 
         div.innerHTML = `
-        <div class="row g-0 bg-primary bg-opacity-10">
+        <div class="row g-0 bg-primary bg-opacity-10 shadow">
             <div class="col-md-4 d-flex align-items-centera">
                 <img src="${phone.image}" class="rounded mx-auto d-block">
             </div>
@@ -78,7 +83,7 @@ const displayPhoneDetail = phone => {
                 <div class="card-body">
                     <h4 class="card-title">${phone.brand}</h4>
                     <h5 class="card-title">${phone.name}</h5>
-                    <h6 class="card-title">(${phone?.releaseDate})</h6>
+                    <h6 class="card-title">(${phone.releaseDate ? phone.releaseDate:'No release date available'})</h6>
                     <p class="card-text">Chipset: ${phone.mainFeatures.chipSet}</p>
                     <p class="card-text">Display Size: ${phone.mainFeatures.displaySize}</p>
                     <p class="card-text">Memory: ${phone.mainFeatures.memory}</p>
@@ -89,12 +94,12 @@ const displayPhoneDetail = phone => {
             <div class="col-md-4">
                     <div class="card-body">
                         <h5 class="card-title">Others:</h5>
-                        <p class="card-text">Bluetoth: ${phone?.others?.Bluetooth}</p>
-                        <p class="card-text">GPS: ${phone.others?.GPS}</p>
-                        <p class="card-text">NFC: ${phone?.others?.NFC}</p>
-                        <p class="card-text">Radio: ${phone?.others?.Radio}</p>
-                        <p class="card-text">USB: ${phone?.others?.USB}</p>
-                        <p class="card-text">WLAN: ${phone?.others?.WLAN}</p>
+                        <p class="card-text">Bluetoth: ${phone.others?.Bluetooth ? phone.others.GPS:'Information Not Available'}</p>
+                        <p class="card-text">GPS: ${phone.others?.GPS ? phone.others.GPS:'Information Not Available'}</p>
+                        <p class="card-text">NFC: ${phone.others?.NFC ? phone.others.GPS:'Information Not Available'}</p>
+                        <p class="card-text">Radio: ${phone.others?.Radio ? phone.others.GPS:'Information Not Available'}</p>
+                        <p class="card-text">USB: ${phone.others?.USB ? phone.others.GPS:'Information Not Available'}</p>
+                        <p class="card-text">WLAN: ${phone.others?.WLAN ? phone.others.GPS:'Information Not Available'}</p>
                     </div>
                 </div>
         </div>
