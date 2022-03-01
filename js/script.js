@@ -2,6 +2,8 @@ document.getElementById('warning-msg').style.display = 'none'
 document.getElementById('error-msg').style.display = 'none'
 
 const searchPhone = () => {
+    const phoneDetail = document.getElementById("phone-detail")
+    phoneDetail.textContent = ''
     const searchField = document.getElementById("search-field");
     searchText = searchField.value;
     searchField.value = '';
@@ -17,6 +19,7 @@ const searchPhone = () => {
             if(data.status == false){
                 document.getElementById('error-msg').style.display = 'block'
                 document.getElementById('warning-msg').style.display = 'none'
+                
                 console.log(data.status)
             }
             else{
@@ -56,35 +59,45 @@ const loadPhoneDetail = phoneId => {
     .then(data => displayPhoneDetail(data.data))
 }
 const displayPhoneDetail = phone => {
+    console.log(phone)
     document.getElementById('warning-msg').style.display = 'none'
     document.getElementById('error-msg').style.display = 'none'
-    if(phone.mainFeatures.chipSet){
-        console.log(phone.mainFeatures.chipSet)
-    }
-    else{
-        console.log('null')
-    }
     const phoneDetail = document.getElementById("phone-detail")
     phoneDetail.textContent = ''
-    const div = document.createElement('div')
-    div.classList.add('card')
-    div.innerHTML = `
-    <div class="row g-0">
-        <div class="col-md-3">
-            <img src="${phone.image}" class="img-fluid rounded-start">
-        </div>
-        <div class="col-md-9">
-            <div class="card-body">
-                <h4 class="card-title">${phone.brand}</h4>
-                <h5 class="card-title">${phone.name}</h5>
-                <h6 class="card-title">(${phone.releaseDate})</h6>
-                <p class="card-text">Chipset: ${phone.mainFeatures.chipSet}</p>
-                <p class="card-text">Display Size: ${phone.mainFeatures.displaySize}</p>
-                <p class="card-text">Memory: ${phone.mainFeatures.memory}</p>
-                <p class="card-text">Storage: ${phone.mainFeatures.storage}</p>
+    if(phone.others){
+        console.log(phone.others)
+    }
+        const div = document.createElement('div')
+        div.classList.add('card') 
+        div.innerHTML = `
+        <div class="row g-0 bg-primary bg-opacity-10">
+            <div class="col-md-4 d-flex align-items-centera">
+                <img src="${phone.image}" class="rounded mx-auto d-block">
             </div>
+            <div class="col-md-4">
+                <div class="card-body">
+                    <h4 class="card-title">${phone.brand}</h4>
+                    <h5 class="card-title">${phone.name}</h5>
+                    <h6 class="card-title">(${phone?.releaseDate})</h6>
+                    <p class="card-text">Chipset: ${phone.mainFeatures.chipSet}</p>
+                    <p class="card-text">Display Size: ${phone.mainFeatures.displaySize}</p>
+                    <p class="card-text">Memory: ${phone.mainFeatures.memory}</p>
+                    <p class="card-text">Storage: ${phone.mainFeatures.storage}</p>
+                    <p class="card-text">Sensors: ${phone.mainFeatures.sensors}</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Others:</h5>
+                        <p class="card-text">Bluetoth: ${phone?.others?.Bluetooth}</p>
+                        <p class="card-text">GPS: ${phone.others?.GPS}</p>
+                        <p class="card-text">NFC: ${phone?.others?.NFC}</p>
+                        <p class="card-text">Radio: ${phone?.others?.Radio}</p>
+                        <p class="card-text">USB: ${phone?.others?.USB}</p>
+                        <p class="card-text">WLAN: ${phone?.others?.WLAN}</p>
+                    </div>
+                </div>
         </div>
-    </div>
-    `;
-    phoneDetail.appendChild(div)
+        `;
+        phoneDetail.appendChild(div)
 }
